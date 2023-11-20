@@ -5,7 +5,7 @@ import MainPage from "./components/MainPage";
 function App() {
 
   return (
-    <div className={`relative max-w-[1920px] w-full bg-[#0B0C0D] mx-auto`}>
+    <div className={`relative max-w-[1920px] w-full bg-[#0B0C0D] mx-auto overflow-hidden`}>
         <Header/>
         <MainPage/>
     </div>

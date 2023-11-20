@@ -32,6 +32,9 @@ import farming05 from '../assets/images/mainPage/farming05.png';
 import farming06 from '../assets/images/mainPage/farming06.png';
 import farming07 from '../assets/images/mainPage/farming07.png';
 import smallArrow from '../assets/images/mainPage/smallArrow.svg';
+import exmo from '../assets/images/mainPage/exmo.png';
+import stage_1 from '../assets/images/mainPage/stage_1.png';
+import stage_2 from '../assets/images/mainPage/stage_2.png';
 
 
 import '../assets/scss/slick.scss';
@@ -39,7 +42,7 @@ import '../assets/scss/slick-theme.scss';
 
 import Slider from 'react-slick';
 
-import { useRef, useState } from 'react';
+import { createRef, useEffect, useRef, useState } from 'react';
 
 
 const MainPage = () => {
@@ -50,6 +53,15 @@ const MainPage = () => {
         slidesToShow: 1,
         slidesToScroll: 1,
         arrows: false,
+        swipe: false,
+    }
+
+    const secondSettings = {
+        className: "slider variable-width",
+        dots: false,
+        infinite: true,
+        slidesToScroll: 1,
+        variableWidth: true,
         swipe: false,
     }
 
@@ -224,6 +236,10 @@ const MainPage = () => {
     });
 
     const [slideNumber, setSlideNumber] = useState(0);
+    const [secondSlideNumber, setSecondSlideNumber] = useState(0);
+    const [secondSliderArrow, setSecondSliderArrow] = useState('');
+    const [stage, setStage] = useState(true);
+    const [secondSliderIndex, setSecondSliderIndex] = useState(1);
 
     let dotsSlider = [];
     for (let i = 0; i < 10; i++) {
@@ -234,6 +250,7 @@ const MainPage = () => {
     }
 
     const refSlider = useRef(null);
+    const refSecondSlider = useRef(null);
 
     const [block, setBlock] = useState(false);
 
@@ -262,7 +279,7 @@ const MainPage = () => {
 
     const technologiesList = technologiesArr.map((item, i) => {
         return (
-            <div className={`w-[340px] h-[125px] rounded-[15px] border-[1px] border-[rgba(255,255,255,0.1)] bg-[rgba(16,17,19,0.80)] ${i === 0 || i === 1 ? ' mb-5' : ''} flex pl-[21px]`}>
+            <div className={`w-[340px] h-[125px] rounded-[15px] border-[1px] border-[rgba(255,255,255,0.1)] bg-[rgba(16,17,19,0.80)] ${i === 0 || i === 1 ? ' mb-5' : ''} flex pl-[21px]`} key={i}>
                 <div className={`h-full flex items-center mr-5`}>
                     <img src={item.icon} alt="img" />
                 </div>
@@ -344,8 +361,68 @@ const MainPage = () => {
         );
     });
 
+    let exmoArr = [];
+    for (let i = 0; i < 10; i++) {
+        let temp = <img src={exmo} alt="img" key={i} className={`mr-[28px]`} />
+        exmoArr.push(temp);
+    }
+
+    let refArr = [];
+    for(let i = 0; i < 12; i++){
+        refArr.push(createRef());
+    }
+
+    const secondSliderList = [];
+
+    for (let i = 0; i < 12; i++) {
+
+        const secondSliderItem = <div className={`secondSliderItem w-[460px] h-[340px] rounded-[15px] pt-9 font-manrope pl-[43px]`} key={i} style={{ width: 460 }} ref={refArr[i]}>
+            <div className={` text-[20px]/[26px] text-white font-medium mb-[13px]`}>
+                Launcing the platform registrations
+            </div>
+            <p className={` text-[16px]/[26px] text-[#B0B4BA] max-w-[373px] h-[204px]`}>
+                TOur team the main tasks to work effectively using the latest software solutions and machine technologies to multiply the pool participants, capita learning on the free and decentralized digital money market.
+            </p>
+            <div className={`flex items-center`}>
+                <span className={`text-[18px]/[29px] text-[#57A4FF] font-manrope font-semibold uppercase mr-[6px]`}>
+                    Read more
+                </span>
+                <img src={smallArrow} alt="img" />
+            </div>
+        </div>
+
+        const stage = <div className={`stage h-[340px]`} key={i} style={{ width: '97px' }}>
+            <img src={i === 0 ? stage_1 : stage_2} alt="img" className={` block`} />
+        </div>
+
+        if (i === 0 || i === 6) {
+            secondSliderList.push(stage);
+        } else {
+            secondSliderList.push(secondSliderItem)
+        }
+    }
+
+    const financeArr = [
+        {
+            title: 'finance',
+            email: 'dadsakdsa@gmail.com'
+        },
+        {
+            title: 'finance',
+            email: 'dadsakdsa@gmail.com'
+        },
+        {
+            title: 'finance',
+            email: 'dadsakdsa@gmail.com'
+        },
+        {
+            title: 'finance',
+            email: 'dadsakdsa@gmail.com'
+        },
+    ];
+
     return (
-        <div className={`mainPageWrapper h-[6000px] relative bg-[#0B0C0D] pt-[305px]`}>
+        <div className={`mainPageWrapper relative bg-[#0B0C0D] pt-[305px]`}>
             <section className={` mx-[250px] relative z-[1]`}>
                 <div className={`flex items-center mb-[30px]`}>
                     <img src={iconAI} alt="img" />
@@ -533,6 +610,96 @@ const MainPage = () => {
                     <div className={`max-w-[940px] flex justify-between flex-wrap gap-5`}>
                         {farmingList}
                     </div>
+                </div>
+            </section>
+            <div className={`flex mb-[149px]`}>
+                {exmoArr}
+            </div>
+            <section className={`secondSlider pl-[226px] relative pb-[583px]`}>
+                <div className={`flex mb-[26px]`}>
+                    <img src={leftArrow} alt="img" className={` cursor-pointer`} onClick={() => {
+                        setSecondSliderArrow('prev');
+                        if(!refArr[secondSliderIndex - 1]?.current){
+                            refSecondSlider.current.slickGoTo(secondSliderIndex - 2)
+                        }else{
+                            refSecondSlider.current.slickPrev();
+                        }
+                    }} />
+                    <div className={` text-white text-[24px]/[27px] font-manrope`}>
+                        <span className={` font-bold ml-[5px]`}>
+                            {stage ? '-' : secondSlideNumber}
+                        </span>
+                        <span className={` font-medium text-[#B0B4BA] mr-[5px]`}>
+                            /10
+                        </span>
+                    </div>
+                    <img src={rightArrow} alt="img" className={` cursor-pointer`} onClick={() => {
+                        setSecondSliderArrow('next');
+                        if(!refArr[secondSliderIndex + 1]?.current){
+                            refSecondSlider.current.slickGoTo(secondSliderIndex + 2);
+                        }else{
+                            refSecondSlider.current.slickNext();
+                        }
+                    }} />
+                </div>
+                <h2 className={` text-[32px]/[36px] text-white font-gilroy mb-[26px]`}>
+                    OUR WAY
+                </h2>
+                <div className={` absolute bottom-[243px] left-0 w-full h-[340px] overflow-hidden`}>
+                    <Slider
+                        {...secondSettings}
+                        ref={refSecondSlider}
+                        afterChange={(index) => {
+                            setSecondSliderIndex(index);
+                            if(refArr[index].current === null){
+                                setStage(true);
+                            }
+                            if(refArr[index]?.current?.getAttribute('class').includes('secondSliderItem')){
+                                setStage(false);
+                                if(secondSliderArrow === 'prev'){
+                                    if(secondSlideNumber === 1 || secondSlideNumber === 0){
+                                        setSecondSlideNumber(10)
+                                    }else{
+                                        setSecondSlideNumber(secondSlideNumber - 1);
+                                    }
+                                }
+                                if(secondSliderArrow === 'next'){
+                                    if(secondSlideNumber === 10){
+                                        setSecondSlideNumber(1);
+                                    }else{
+                                        setSecondSlideNumber(secondSlideNumber + 1);
+                                    }
+                                }
+                            }
+                        }}
+                    >
+                        {secondSliderList}
+                    </Slider>
+                </div>
+            </section>
+            <section>
+                <div className={`pl-[982px] mb-[220px]`}>
+                    {['Show on map', 'Navigate'].map((item, i) => {
+                        return(
+                            <a href="" key={i} className={`text-[18px]/[25px] text-white font-manrope inline-block py-[13px] px-[55px] rounded-[15px] ${i === 0 ? 'mr-[15px]' : ''} border-[1px] border-[#3B3E45] bg-[#15171B]`}>
+                                {item}
+                            </a>
+                        );
+                    })}
+                </div>
+                <div className={`pl-[286px] pr-[334px] flex justify-between`}>
+                    {financeArr.map((item, i) => {
+                        return(
+                            <div className={` font-manrope mb-[145px]`}>
+                                <div className={`text-[16px]/[22px] text-[#57A4FF] font-medium uppercase mb-[10px]`}>
+                                    {item.title}
+                                </div>
+                                <div className={`text-[18px]/[20px] text-white font-semibold`}>
+                                    {item.email}
+                                </div>
+                            </div>
+                        );
+                    })}
                 </div>
             </section>
 
