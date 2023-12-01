@@ -31,8 +31,158 @@ li {
         align-items: center;
     }
 
-    .stage{
+    .stage {
         display: flex !important;
         justify-content: center;
+    }
+}
+
+.headerWrapper {
+
+    @media (max-width: 1500px) and (min-width: 1000px) {
+        width: 97%;
+    }
+
+    @media (max-width: 1000px) {
+
+        width: 70%;
+        padding-left: 90px !important;
+
+        .menuList {
+            position: absolute;
+            left: -700px;
+            top: 70px;
+            border-radius: 15px;
+            border: 1px solid rgba(46, 48, 52, 0.50);
+            background: rgb(16, 17, 19);
+            backdrop-filter: blur(50px);
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            width: 100%;
+
+            li {
+                margin-bottom: 10px;
+            }
+        }
+
+        .menuItem{
+            font-size: 30px;
+            line-height: 35px;
+        }
+
+        .menuListOpen{
+            left: 0;
+        }
+
+        .mobileMenu {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .openMobileMenu{
+
+            .one{
+                transform: rotate(45deg);
+                position: relative;
+                top: 15px;
+                left: 0;
+                transform-origin: center center;
+            }
+
+            .two{
+                display: none;
+            }
+
+            .three{
+                position: relative;
+                transform: rotate(-45deg);
+                transform-origin: center center;
+                bottom: 16px;
+                left: 1px;
+            }
+        }
+    }
+
+    @media (max-width: 900px){
+        width: 90%;
+    }
+
+    @media (max-width: 700px){
+
+        top: 80px !important;
+        justify-content: flex-end !important;
+
+        .signInButton{
+            width: 100px;
+        }
+
+        .logo{
+            position: absolute;
+            top: -65px;
+            left: 0;
+        }
+    }
+}
+
+.mainPageWrapper {
+    background-image: url('../images/mainPage/mapBG.png');
+    background-position-x: center;
+    background-position-y: 109%;
+    background-repeat: no-repeat;
+
+    @media (max-width: 1900px) {
+        padding-top: 200px !important;
+    }
+
+    @media (max-width: 1700px) {
+        padding-top: 175px !important;
+
+        .section_1 {
+            margin: 0 150px 0 150px;
+        }
+    }
+
+    @media (max-width: 1449px){
+        .section_1{
+            margin: 0 auto;
+        }
+    }
+
+    @media (max-width: 1000px) {
+        .section_1 {
+
+            img+span {
+                font-size: 20px;
+                line-height: 26px;
+                margin-left: 15px !important;
+            }
+
+            img {
+                width: 40px;
+                height: 40px;
+            }
+
+            h1 {
+                font-size: 50px !important;
+                line-height: 60px !important;
+                max-width: 500px;
+            }
+        }
+    }
+
+    @media (max-width: 700px){
+        .section_1{
+            .statisticBlocks{
+                max-width: 280px;
+            }
+        }
+    }
+
+    .section_2{
+        @media (max-width: 1500px){
+            
+        }
     }
 }
